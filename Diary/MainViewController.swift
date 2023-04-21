@@ -93,7 +93,7 @@ class MainViewController: UIViewController {
     }
     
     @objc func showAddView() {
-        let vc = AddViewControllerA()
+        let vc = AddViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -120,18 +120,34 @@ extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.identifier, for: indexPath) as! MainTableViewCell
-        cell.titleLabel.text = "\(tasks[indexPath.row].name)"
-        cell.timeLabel.text = "\(tasks[indexPath.row].startDate)"
+        cell.config(tasks[indexPath.row])
+
         return cell
     }
+    
 }
 
 extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = AddViewControllerA()
+        let vc = AddViewController()
         vc.task = tasks[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [self] _, _, _ in
+            do {
+                try taskManager.removeTask(tasks[indexPath.row])
+            } catch {
+                print(error)
+            }
+            tasks = Array(taskManager.allTasks)
+            self.tableView.reloadData()
+        }
+        let swipeActions = UISwipeActionsConfiguration(actions: [deleteAction])
+        return swipeActions
     }
 }
 
