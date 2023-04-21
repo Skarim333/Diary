@@ -25,7 +25,10 @@ class AddViewController: UIViewController {
             }
         }
     }
-    
+    let taskManager = TaskManager()
+    var tasks = Task()
+    let labelChekDate: String = "1"
+    let labelChekTime: String = "2"
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(TitleCell.self, forCellReuseIdentifier: TitleCell.identifier)
@@ -44,7 +47,35 @@ class AddViewController: UIViewController {
     }
     
     @objc func addNewTask() {
-        
+        let titleIndexPath = IndexPath(row: 0, section: SectionV.titleNotes.rawValue)
+            let notesIndexPath = IndexPath(row: 1, section: SectionV.titleNotes.rawValue)
+            let timeIndexPath = IndexPath(row: 0, section: SectionV.time.rawValue)
+            let dateIndexPath = IndexPath(row: 0, section: SectionV.date.rawValue)
+            
+            // Get the cells at those index paths
+            let titleCell = tableView.cellForRow(at: titleIndexPath) as! TitleCell
+            let notesCell = tableView.cellForRow(at: notesIndexPath) as! NotesCell
+            let timeCell = tableView.cellForRow(at: timeIndexPath) as! TimeCell
+            let dateCell = tableView.cellForRow(at: dateIndexPath) as! DateCell
+            
+            // Extract the data from the cells
+        let title = titleCell.titleTextField.text ?? ""
+        let notes = notesCell.descriptionTextField.text ?? ""
+//        let time = timeCell.timeLabel.text
+//            let date = dateCell.datePicker.date
+            
+            // Create a new Task object with the extracted data
+            let newTask = Task()
+            newTask.name = title
+            newTask.taskDescription = notes
+//            newTask.startDate = date
+            
+            // Save the new task to Realm
+            do {
+                try taskManager.addTask(newTask)
+            } catch {
+                print("Error saving task: \(error)")
+            }
     }
     
     func setupTableView() {
@@ -133,25 +164,34 @@ extension AddViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: TimeCell.identifier, for: indexPath) as! TimeCell
-//            alertTime(label: cell.timeLabel) {(time) in
-//                self.viewModel.viewTime = time
-//                self.labelTime.text = self.labelChekTime
-//                if self.labelTime.text == "2" {
-//                    self.labelTime.textColor = .black
-//                }
+            guard let cell = tableView.cellForRow(at: indexPath) as? TimeCell else {
+                        return // ячейка еще не создана
+                    }
+            alertTime(label: cell.timeLabel) {(time) in
+                self.tasks.startTime = time
+                cell.timeLabel.text = self.labelChekTime
+                if cell.timeLabel.text == "2" {
+                    cell.timeLabel.textColor = .black
+                }
+                
 //                self.updateSabeButtonState()
+            }
+
             case 2:
-                let cell = tableView.dequeueReusableCell(withIdentifier: DateCell.identifier, for: indexPath) as! DateCell
-//                alertDate(label: cell.da?teLabel) {(numberWeekday, date) in
-//                    self.viewModel.viewDate = date
-//                    self.viewModel.viewWeekday = numberWeekday
-//                    self.labelDate.text = self.labelChekDate
-//                    if self.labelDate.text == "1" {
-//                        self.labelDate.textColor = .black
-//                    }
+            guard let cell = tableView.cellForRow(at: indexPath) as? DateCell else {
+                        return
+                    }
+                alertDate(label: cell.dateLabel) {(numberWeekday, date) in
+                    self.tasks.startDate = date
+                    self.tasks.repetitionsPerDay = numberWeekday
+                    cell.dateLabel.text = self.labelChekDate
+                    if cell.dateLabel.text == "1" {
+                        cell.dateLabel.textColor = .black
+                    }
+                    cell.dateLabel.text = "fafda"
+                    
 //                    self.updateSabeButtonState()
-//                }
+                }
             
         default:
             print("Error")

@@ -10,6 +10,7 @@ import RealmSwift
 class Task: Object {
     
     @Persisted var id =  UUID().uuidString
+    @Persisted var startTime = Date()
     @Persisted var startDate = Date()
     @Persisted var name: String = ""
     @Persisted var taskDescription: String = ""

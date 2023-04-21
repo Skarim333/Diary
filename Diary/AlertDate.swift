@@ -32,7 +32,7 @@ extension UIViewController {
             let numberWeekday = weekday
             let date = datePicker.date
             completionHandler(numberWeekday, date)
-            
+            print(dateString)
             label.text = dateString
         }
         

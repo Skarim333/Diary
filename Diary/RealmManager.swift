@@ -8,8 +8,18 @@
 import RealmSwift
 
 class TaskManager {
-    let realm = try! Realm()
-    
+//    let realm = try! Realm()
+    lazy var realm: Realm = {
+            let config = Realm.Configuration(schemaVersion: 1, migrationBlock: { migration, oldSchemaVersion in
+                if oldSchemaVersion < 1 {
+                    // Add the startTime property to the Task object
+                    migration.enumerateObjects(ofType: Task.className()) { oldObject, newObject in
+                        newObject?["startTime"] = Date()
+                    }
+                }
+            })
+            return try! Realm(configuration: config)
+        }()
     // добавление новой задачи
     func addTask(_ task: Task) throws {
         do {
@@ -33,7 +43,7 @@ class TaskManager {
     }
     
     // изменение задачи
-    func editTask(_ task: Task, withName name: String?, taskDescription: String?, startDate: Date?, repetitionsPerDay: Int?) throws {
+    func editTask(_ task: Task, withName name: String?, taskDescription: String?,startTime: Date?, startDate: Date?, repetitionsPerDay: Int?) throws {
         do {
             try realm.write {
                 if let name = name {
@@ -41,6 +51,9 @@ class TaskManager {
                 }
                 if let taskDescription = taskDescription {
                     task.taskDescription = taskDescription
+                }
+                if let startTime = startTime {
+                    task.startTime = startTime
                 }
                 if let startDate = startDate {
                     task.startDate = startDate
