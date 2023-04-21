@@ -13,6 +13,8 @@ class MainViewController: UIViewController {
     // Создаем экземпляр TaskManager
     var calendarHeightConstraint: NSLayoutConstraint!
     let taskManager = TaskManager()
+    private var tasks = [Task]()
+    let model = Task()
     private var calendar: FSCalendar = {
         let calenadar = FSCalendar()
         calenadar.translatesAutoresizingMaskIntoConstraints = false
@@ -30,20 +32,32 @@ class MainViewController: UIViewController {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .blue
         return tableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let keys = model.objectSchema.properties.map { $0.name }
+        print(keys)
         view.backgroundColor = .systemBackground
         calendar.delegate = self
         calendar.dataSource =  self
         calendar.scope = .week
-        viewOnDay(date: Date())
+        tableView.delegate = self
+        tableView.dataSource = self
         setConstraints()
         showHideButton.addTarget(self, action: #selector(showHideButtonTapped), for: .touchUpInside)
         setupBarButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        do {
+//            try taskManager.removeAllTasks()
+        } catch {
+            print(error.localizedDescription)
+        }
+        viewOnDay(date: Date())
     }
     
     @objc func showHideButtonTapped() {
@@ -60,24 +74,26 @@ class MainViewController: UIViewController {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.weekday], from: date)
         guard let weekday = components.weekday else { return }
-        
-        let dateStart = date
-        let dateEnd: Date = {
-            let components = DateComponents(day: 1, second: -1)
-            return Calendar.current.date(byAdding: components, to: dateStart)!
-        }()
-        
-        let predicate = NSPredicate(format: "viewWeekday = \(weekday) AND viewDate BETWEEN %@", [dateStart, dateEnd])
-//        viewArray = localRealm.objects(ViewModel.self).filter(predicate).sorted(byKeyPath: "viewTime")
-//        self.tableView.reloadData()
+
+        let dateStart = calendar.startOfDay(for: date)
+        let dateEnd = calendar.date(byAdding: .day, value: 1, to: dateStart)!
+        print(dateStart)
+        print(dateEnd)
+        print(weekday)
+        let predicate = NSPredicate(format: "repetitionsPerDay == %d AND startDate >= %@ AND startDate < %@", weekday, dateStart as NSDate, dateEnd as NSDate)
+        tasks = Array(taskManager.allTasks.filter(predicate).sorted(byKeyPath: "startTime"))
+        print(tasks)
+        self.tableView.reloadData()
     }
+
+
     
     func setupBarButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(showAddView))
     }
     
     @objc func showAddView() {
-        let vc = AddViewController()
+        let vc = AddViewControllerA()
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -95,6 +111,28 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource {
         viewOnDay(date: date)
     }
     
+}
+
+extension MainViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        tasks.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.identifier, for: indexPath) as! MainTableViewCell
+        cell.titleLabel.text = "\(tasks[indexPath.row].name)"
+        cell.timeLabel.text = "\(tasks[indexPath.row].startDate)"
+        return cell
+    }
+}
+
+extension MainViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = AddViewControllerA()
+        vc.task = tasks[indexPath.row]
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension MainViewController {

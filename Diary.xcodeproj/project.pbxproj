@@ -21,6 +21,7 @@
 		5D83F54829F047E9001219A5 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D83F54729F047E9001219A5 /* AddViewController.swift */; };
 		5D83F54A29F05C72001219A5 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D83F54929F05C72001219A5 /* RealmManager.swift */; };
 		5D83F54C29F05C8B001219A5 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D83F54B29F05C8B001219A5 /* TaskModel.swift */; };
+		5D851DAE29F2925000BF9327 /* AddViewControllerA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D851DAD29F2925000BF9327 /* AddViewControllerA.swift */; };
 		5DDABE1729F0637F00842F7D /* Extension + UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDABE1629F0637F00842F7D /* Extension + UIView.swift */; };
 		5DDABE1929F06D1600842F7D /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDABE1829F06D1600842F7D /* MainTableViewCell.swift */; };
 		5DDABE1B29F072ED00842F7D /* DetailTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDABE1A29F072ED00842F7D /* DetailTableView.swift */; };
@@ -70,6 +71,7 @@
 		5D83F54729F047E9001219A5 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		5D83F54929F05C72001219A5 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		5D83F54B29F05C8B001219A5 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
+		5D851DAD29F2925000BF9327 /* AddViewControllerA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewControllerA.swift; sourceTree = "<group>"; };
 		5DDABE1629F0637F00842F7D /* Extension + UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIView.swift"; sourceTree = "<group>"; };
 		5DDABE1829F06D1600842F7D /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		5DDABE1A29F072ED00842F7D /* DetailTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableView.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				5D83F54529F04698001219A5 /* MainViewController.swift */,
 				5DDABE1829F06D1600842F7D /* MainTableViewCell.swift */,
 				5D83F54729F047E9001219A5 /* AddViewController.swift */,
+				5D851DAD29F2925000BF9327 /* AddViewControllerA.swift */,
 				5DDABE1A29F072ED00842F7D /* DetailTableView.swift */,
 				5DDABE2829F075FA00842F7D /* Cell */,
 				5DDABE1C29F0749600842F7D /* AlertDate.swift */,
@@ -458,6 +461,7 @@
 				5DDABE2529F075C400842F7D /* TimeCell.swift in Sources */,
 				5D83F51629F04517001219A5 /* AppDelegate.swift in Sources */,
 				5D83F54A29F05C72001219A5 /* RealmManager.swift in Sources */,
+				5D851DAE29F2925000BF9327 /* AddViewControllerA.swift in Sources */,
 				5D83F54829F047E9001219A5 /* AddViewController.swift in Sources */,
 				5D83F51829F04517001219A5 /* SceneDelegate.swift in Sources */,
 				5DDABE1729F0637F00842F7D /* Extension + UIView.swift in Sources */,

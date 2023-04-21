@@ -17,7 +17,7 @@ class MainTableViewCell: UITableViewCell {
         return label
     }()
     
-    let dateLabel: UILabel = {
+    let timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         return label
@@ -27,7 +27,7 @@ class MainTableViewCell: UITableViewCell {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
         contentView.addSubview(titleLabel)
-        contentView.addSubview(dateLabel)
+        contentView.addSubview(timeLabel)
     }
     
     required init?(coder: NSCoder) {
@@ -37,6 +37,6 @@ class MainTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         titleLabel.frame = CGRect(x: 10, y: 0, width: width-40, height: height*2/3)
-        dateLabel.frame = CGRect(x: 10, y: titleLabel.bottom, width: width-20, height: height*1/3)
+        timeLabel.frame = CGRect(x: 10, y: titleLabel.bottom, width: width-20, height: height*1/3)
     }
 }

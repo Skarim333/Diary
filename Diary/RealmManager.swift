@@ -8,9 +8,9 @@
 import RealmSwift
 
 class TaskManager {
-//    let realm = try! Realm()
+    
     lazy var realm: Realm = {
-            let config = Realm.Configuration(schemaVersion: 1, migrationBlock: { migration, oldSchemaVersion in
+            let config = Realm.Configuration(schemaVersion: 2, migrationBlock: { migration, oldSchemaVersion in
                 if oldSchemaVersion < 1 {
                     // Add the startTime property to the Task object
                     migration.enumerateObjects(ofType: Task.className()) { oldObject, newObject in
@@ -71,4 +71,15 @@ class TaskManager {
     var allTasks: Results<Task> {
         return realm.objects(Task.self)
     }
+    
+    func removeAllTasks() throws {
+        do {
+            try realm.write {
+                realm.deleteAll()
+            }
+        } catch {
+            throw error
+        }
+    }
+
 }
