@@ -13,9 +13,8 @@ class MainTableViewCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.font = UIFont.systemFont(ofSize: 17)
 //        label.backgroundColor = .red
-
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -24,7 +23,6 @@ class MainTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
 //        label.backgroundColor = .blue
-        label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -57,11 +55,11 @@ class MainTableViewCell: UITableViewCell {
             
             timeLabel.bottomAnchor.constraint(equalTo: margin.bottomAnchor),
             timeLabel.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
-            timeLabel.widthAnchor.constraint(equalToConstant: 30),
+            timeLabel.widthAnchor.constraint(equalToConstant: 40),
             timeLabel.topAnchor.constraint(equalTo: margin.topAnchor),
 
             titleLabel.bottomAnchor.constraint(equalTo: margin.bottomAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: timeLabel.trailingAnchor, constant: 10),
+            titleLabel.leadingAnchor.constraint(equalTo: timeLabel.trailingAnchor, constant: 5),
             titleLabel.trailingAnchor.constraint(equalTo: margin.trailingAnchor),
             titleLabel.topAnchor.constraint(equalTo: margin.topAnchor)
         ]

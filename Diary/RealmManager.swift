@@ -9,17 +9,8 @@ import RealmSwift
 
 class TaskManager {
     
-    lazy var realm: Realm = {
-            let config = Realm.Configuration(schemaVersion: 2, migrationBlock: { migration, oldSchemaVersion in
-                if oldSchemaVersion < 1 {
-                    // Add the startTime property to the Task object
-                    migration.enumerateObjects(ofType: Task.className()) { oldObject, newObject in
-                        newObject?["startTime"] = Date()
-                    }
-                }
-            })
-            return try! Realm(configuration: config)
-        }()
+    private let realm = RealmService.shared.getRealm()
+    
     // добавление новой задачи
     func addTask(_ task: Task) throws {
         do {
@@ -69,6 +60,7 @@ class TaskManager {
     
     // получение всех задач
     var allTasks: Results<Task> {
+        print(realm.objects(Task.self))
         return realm.objects(Task.self)
     }
     

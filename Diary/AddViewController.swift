@@ -45,7 +45,7 @@ class AddViewController: UIViewController {
     
     var nameTextField: UITextField = {
         let txt = UITextField()
-        txt.placeholder = "Task name"
+        txt.placeholder = "Title"
         txt.font = UIFont.systemFont(ofSize: 17)
         txt.layer.borderColor = UIColor.gray.cgColor
         txt.layer.borderWidth = 1
@@ -58,8 +58,20 @@ class AddViewController: UIViewController {
         return txt
     }()
     
-    var descriptionTextField: UITextView = {
-        let txt = UITextView()
+//    var descriptionTextField: PlaceholderTextView = {
+//        let txt = PlaceholderTextView()
+//        txt.layer.borderColor = UIColor.gray.cgColor
+//        txt.layer.borderWidth = 1
+//        txt.layer.cornerRadius = 5
+//        txt.accessibilityIdentifier = "inputDescription"
+//        txt.placeholderText = "Enter Description"
+//        txt.translatesAutoresizingMaskIntoConstraints = false
+//        txt.font = UIFont.systemFont(ofSize: 17)
+//        txt.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+//        return txt
+//    }()
+    var descriptionTextField: PlaceholderTextView = {
+        let txt = PlaceholderTextView()
         txt.layer.borderColor = UIColor.gray.cgColor
         txt.layer.borderWidth = 1
         txt.layer.cornerRadius = 5
@@ -67,6 +79,7 @@ class AddViewController: UIViewController {
         txt.translatesAutoresizingMaskIntoConstraints = false
         txt.font = UIFont.systemFont(ofSize: 17)
         txt.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        txt.placeholderText = "Enter Description"
         return txt
     }()
     
@@ -131,12 +144,12 @@ class AddViewController: UIViewController {
             present(alert, animated: true)
             return
         }
-        let startDate = startDatePicker.date
+        let startTime = startDatePicker.date
         let calendar = Calendar.current
-        let component = calendar.dateComponents([.weekday], from: startDate)
+        let component = calendar.dateComponents([.weekday], from: startTime)
         guard let repetitionsPerDay = component.weekday else { return }
         do {
-            try viewModel.addTask(name: name, description: description, startDate: startDate, repetitionsPerDay: repetitionsPerDay)
+            try viewModel.addTask(name: name, description: description, startTime: startTime, repetitionsPerDay: repetitionsPerDay)
         } catch {
             print("Error saving task: (error)")
         }

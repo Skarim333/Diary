@@ -28,6 +28,8 @@
 		5D851DB629F3056D00BF9327 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D851DB529F3056D00BF9327 /* MainViewModel.swift */; };
 		5D851DB829F3064400BF9327 /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D851DB729F3064400BF9327 /* AddViewModel.swift */; };
 		5D851DBA29F3066000BF9327 /* AddCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D851DB929F3066000BF9327 /* AddCoordinator.swift */; };
+		5D94C7AB29F4303000F18D4E /* PlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D94C7AA29F4303000F18D4E /* PlaceholderTextView.swift */; };
+		5D94C7B129F43A6500F18D4E /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D94C7B029F43A6500F18D4E /* RealmService.swift */; };
 		5DDABE1729F0637F00842F7D /* Extension + UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDABE1629F0637F00842F7D /* Extension + UIView.swift */; };
 		5DDABE1929F06D1600842F7D /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDABE1829F06D1600842F7D /* MainTableViewCell.swift */; };
 		5DDABE1B29F072ED00842F7D /* DetailTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDABE1A29F072ED00842F7D /* DetailTableView.swift */; };
@@ -84,6 +86,8 @@
 		5D851DB529F3056D00BF9327 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		5D851DB729F3064400BF9327 /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		5D851DB929F3066000BF9327 /* AddCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCoordinator.swift; sourceTree = "<group>"; };
+		5D94C7AA29F4303000F18D4E /* PlaceholderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTextView.swift; sourceTree = "<group>"; };
+		5D94C7B029F43A6500F18D4E /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		5DDABE1629F0637F00842F7D /* Extension + UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIView.swift"; sourceTree = "<group>"; };
 		5DDABE1829F06D1600842F7D /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		5DDABE1A29F072ED00842F7D /* DetailTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableView.swift; sourceTree = "<group>"; };
@@ -176,8 +180,10 @@
 				5D851DAD29F2925000BF9327 /* AddViewController.swift */,
 				5D851DB729F3064400BF9327 /* AddViewModel.swift */,
 				5D851DB929F3066000BF9327 /* AddCoordinator.swift */,
+				5D94C7AA29F4303000F18D4E /* PlaceholderTextView.swift */,
 				5DDABE2829F075FA00842F7D /* Cell */,
 				5D83F54929F05C72001219A5 /* RealmManager.swift */,
+				5D94C7B029F43A6500F18D4E /* RealmService.swift */,
 				5D83F54B29F05C8B001219A5 /* TaskModel.swift */,
 				5DDABE1629F0637F00842F7D /* Extension + UIView.swift */,
 				5D83F51E29F0451B001219A5 /* Assets.xcassets */,
@@ -469,10 +475,12 @@
 			files = (
 				5DDABE2129F075AB00842F7D /* TitleCell.swift in Sources */,
 				5DDABE2729F075D100842F7D /* DateCell.swift in Sources */,
+				5D94C7AB29F4303000F18D4E /* PlaceholderTextView.swift in Sources */,
 				5DDABE2329F075B800842F7D /* NotesCell.swift in Sources */,
 				5D83F54C29F05C8B001219A5 /* TaskModel.swift in Sources */,
 				5D83F54629F04698001219A5 /* MainViewController.swift in Sources */,
 				5DDABE1F29F074AC00842F7D /* AlertTime.swift in Sources */,
+				5D94C7B129F43A6500F18D4E /* RealmService.swift in Sources */,
 				5D851DB229F304ED00BF9327 /* AppCoordinator.swift in Sources */,
 				5DDABE1929F06D1600842F7D /* MainTableViewCell.swift in Sources */,
 				5DDABE1B29F072ED00842F7D /* DetailTableView.swift in Sources */,

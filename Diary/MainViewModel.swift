@@ -11,32 +11,54 @@ class MainViewModel {
     
     private let taskManager = TaskManager()
     var coordinator: MainCoordinator?
-    var tasks: [Task] = []
+//    var tasks: [Task] = []
+    var result: [[Task]] = [[]]
     
     init() {
         
     }
     
-    func removeTask(at index: Int) {
+    func removeTask(_ section: Int, _ row: Int) {
         do {
-            try taskManager.removeTask(tasks[index])
+            try taskManager.removeTask(result[section][row])
         } catch {
             print(error)
         }
-        tasks = Array(taskManager.allTasks)
+           // Перестроение массива result на основе обновленных данных
+           result = getTasksForDays(date: Date())
     }
     
-    func getTasksForDay(date: Date) {
+//    func getTasksForDay(date: Date) {
+//        let calendar = Calendar.current
+//        let components = calendar.dateComponents([.weekday], from: date)
+//        guard let weekday = components.weekday else { return }
+//        
+//        let dateStart = calendar.startOfDay(for: date)
+//        let dateEnd = calendar.date(byAdding: .day, value: 1, to: dateStart)!
+//        
+//        let predicate = NSPredicate(format: "repetitionsPerDay == %d AND startDate >= %@ AND startDate < %@", weekday, dateStart as NSDate, dateEnd as NSDate)
+//        tasks = Array(taskManager.allTasks.filter(predicate).sorted(byKeyPath: "startTime"))
+//    }
+    
+    func getTasksForDays(date: Date) -> [[Task]] {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.weekday], from: date)
-        guard let weekday = components.weekday else { return }
+        guard let weekday = components.weekday else { return [] }
         
         let dateStart = calendar.startOfDay(for: date)
         let dateEnd = calendar.date(byAdding: .day, value: 1, to: dateStart)!
         
         let predicate = NSPredicate(format: "repetitionsPerDay == %d AND startDate >= %@ AND startDate < %@", weekday, dateStart as NSDate, dateEnd as NSDate)
-        tasks = Array(taskManager.allTasks.filter(predicate).sorted(byKeyPath: "startTime"))
+        let sortedTasks = taskManager.allTasks.filter(predicate).sorted(byKeyPath: "startTime")
+        
+        result = Array(repeating: [], count: 24)
+        for task in sortedTasks {
+            let hour = calendar.component(.hour, from: task.startTime)
+            result[hour].append(task)
+        }
+        return result
     }
+
     
     func pushAddView() {
         self.coordinator?.startAddScene()

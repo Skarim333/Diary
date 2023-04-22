@@ -23,7 +23,6 @@ final class AppCoordinator: Coordinator {
         MainCoordinator.parentCoordinator = self
         childCoordinators.append(MainCoordinator)
         MainCoordinator.start()
-        print(childCoordinators)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }
