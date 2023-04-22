@@ -12,9 +12,10 @@ import FSCalendar
 class MainViewController: UIViewController {
     // Создаем экземпляр TaskManager
     var calendarHeightConstraint: NSLayoutConstraint!
-    let taskManager = TaskManager()
-    private var tasks = [Task]()
-    let model = Task()
+//    let taskManager = TaskManager()
+//    private var tasks = [Task]()
+//    let model = Task()
+    var viewModel = MainViewModel()
     private var calendar: FSCalendar = {
         let calenadar = FSCalendar()
         calenadar.translatesAutoresizingMaskIntoConstraints = false
@@ -37,8 +38,6 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let keys = model.objectSchema.properties.map { $0.name }
-        print(keys)
         view.backgroundColor = .systemBackground
         calendar.delegate = self
         calendar.dataSource =  self
@@ -52,11 +51,11 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        do {
+//        do {
 //            try taskManager.removeAllTasks()
-        } catch {
-            print(error.localizedDescription)
-        }
+//        } catch {
+//            print(error.localizedDescription)
+//        }
         viewOnDay(date: Date())
     }
     
@@ -71,18 +70,7 @@ class MainViewController: UIViewController {
     }
     
     func viewOnDay(date: Date) {
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.weekday], from: date)
-        guard let weekday = components.weekday else { return }
-
-        let dateStart = calendar.startOfDay(for: date)
-        let dateEnd = calendar.date(byAdding: .day, value: 1, to: dateStart)!
-        print(dateStart)
-        print(dateEnd)
-        print(weekday)
-        let predicate = NSPredicate(format: "repetitionsPerDay == %d AND startDate >= %@ AND startDate < %@", weekday, dateStart as NSDate, dateEnd as NSDate)
-        tasks = Array(taskManager.allTasks.filter(predicate).sorted(byKeyPath: "startTime"))
-        print(tasks)
+        viewModel.getTasksForDay(date: date)
         self.tableView.reloadData()
     }
 
@@ -93,8 +81,7 @@ class MainViewController: UIViewController {
     }
     
     @objc func showAddView() {
-        let vc = AddViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        viewModel.pushAddView()
     }
 }
 
@@ -115,12 +102,12 @@ extension MainViewController: FSCalendarDelegate, FSCalendarDataSource {
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tasks.count
+        viewModel.tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.identifier, for: indexPath) as! MainTableViewCell
-        cell.config(tasks[indexPath.row])
+        cell.config(viewModel.tasks[indexPath.row])
 
         return cell
     }
@@ -131,19 +118,20 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = AddViewController()
-        vc.task = tasks[indexPath.row]
+        vc.viewModel.task = viewModel.tasks[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [self] _, _, _ in
-            do {
-                try taskManager.removeTask(tasks[indexPath.row])
-            } catch {
-                print(error)
-            }
-            tasks = Array(taskManager.allTasks)
+//            do {
+//                try taskManager.removeTask(tasks[indexPath.row])
+//            } catch {
+//                print(error)
+//            }
+//            tasks = Array(taskManager.allTasks)
+            viewModel.removeTask(at: indexPath.row)
             self.tableView.reloadData()
         }
         let swipeActions = UISwipeActionsConfiguration(actions: [deleteAction])

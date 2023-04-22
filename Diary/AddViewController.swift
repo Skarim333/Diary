@@ -45,23 +45,28 @@ class AddViewController: UIViewController {
     
     var nameTextField: UITextField = {
         let txt = UITextField()
-        txt.placeholder = " Task name"
+        txt.placeholder = "Task name"
+        txt.font = UIFont.systemFont(ofSize: 17)
         txt.layer.borderColor = UIColor.gray.cgColor
-        txt.layer.borderWidth = 1.0
-        txt.layer.cornerRadius = 5.0
+        txt.layer.borderWidth = 1
+        txt.layer.cornerRadius = 5
         txt.accessibilityIdentifier = "inputName"
         txt.translatesAutoresizingMaskIntoConstraints = false
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: txt.frame.height))
+        txt.leftView = paddingView
+        txt.leftViewMode = .always
         return txt
     }()
     
     var descriptionTextField: UITextView = {
         let txt = UITextView()
         txt.layer.borderColor = UIColor.gray.cgColor
-        txt.layer.borderWidth = 1.0
-        txt.layer.cornerRadius = 5.0
-        txt.sizeToFit()
+        txt.layer.borderWidth = 1
+        txt.layer.cornerRadius = 5
         txt.accessibilityIdentifier = "inputDescription"
         txt.translatesAutoresizingMaskIntoConstraints = false
+        txt.font = UIFont.systemFont(ofSize: 17)
+        txt.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         return txt
     }()
     
@@ -69,69 +74,108 @@ class AddViewController: UIViewController {
         let dp = UIDatePicker()
         dp.datePickerMode = .dateAndTime
         dp.translatesAutoresizingMaskIntoConstraints = false
-//        dp.preferredDatePickerStyle = .wheels
         dp.locale = NSLocale(localeIdentifier: "Ru_ru") as Locale
         return dp
     }()
     
-    let taskManager = TaskManager()
-    var task: Task?
+//    let taskManager = TaskManager()
+//    var task: Task?
+    var viewModel = AddViewModel()
     //MARK: - INITIALIZATION
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setUp()
-        let tapGestureReconizer = UITapGestureRecognizer(target: self, action: #selector(tap))
-        tapGestureReconizer.cancelsTouchesInView = false
-        view.addGestureRecognizer(tapGestureReconizer)
+        configTap()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
-        print(startDatePicker.date)
+        configureFields()
     }
+    
     @objc func addTask() {
+        //        guard let name = nameTextField.text, !name.isEmpty,
+        //              let description = descriptionTextField.text, !description.isEmpty else {
+        //            let alert = UIAlertController(title: "Error", message: "Please fill in all fields", preferredStyle: .alert)
+        //            alert.addAction(UIAlertAction(title: "OK", style: .default))
+        //            present(alert, animated: true)
+        //            return
+        //        }
+        //        let newTask = Task()
+        //        newTask.name = name
+        //        newTask.taskDescription = description
+        //        print(startDatePicker.date)
+        //        newTask.startDate = startDatePicker.date
+        //        let calendar = Calendar.current
+        //        let component = calendar.dateComponents([.weekday], from: startDatePicker.date)
+        //        guard let weekday = component.weekday else { return }
+        //        newTask.repetitionsPerDay = weekday
+        //        print(newTask.startDate)
+        //        // Save the new task to Realm
+        //        if task != nil {
+        //            do {
+        //                try taskManager.editTask(task!, withName: name, taskDescription: description, startTime: startDatePicker.date, startDate: Date(), repetitionsPerDay: weekday)
+        //            } catch {
+        //                print(error)
+        //            }
+        //        } else {
+        //            do {
+        //                try taskManager.addTask(newTask)
+        //            } catch {
+        //                print("Error saving task: \(error)")
+        //            }
+        //        }
         guard let name = nameTextField.text, !name.isEmpty,
-              let description = descriptionTextField.text, !description.isEmpty else {
+        let description = descriptionTextField.text, !description.isEmpty else {
             let alert = UIAlertController(title: "Error", message: "Please fill in all fields", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             present(alert, animated: true)
             return
         }
-        let newTask = Task()
-        newTask.name = name
-        newTask.taskDescription = description
-        print(startDatePicker.date)
-        newTask.startDate = startDatePicker.date
+        let startDate = startDatePicker.date
         let calendar = Calendar.current
-        let component = calendar.dateComponents([.weekday], from: startDatePicker.date)
-        guard let weekday = component.weekday else { return }
-        newTask.repetitionsPerDay = weekday
-        print(newTask.startDate)
-        // Save the new task to Realm
-        if task != nil {
-            do {
-                try taskManager.editTask(task!, withName: name, taskDescription: description, startTime: startDatePicker.date, startDate: Date(), repetitionsPerDay: weekday)
-            } catch {
-                print(error)
-            }
-        } else {
-            do {
-                try taskManager.addTask(newTask)
-            } catch {
-                print("Error saving task: \(error)")
-            }
+        let component = calendar.dateComponents([.weekday], from: startDate)
+        guard let repetitionsPerDay = component.weekday else { return }
+        do {
+            try viewModel.addTask(name: name, description: description, startDate: startDate, repetitionsPerDay: repetitionsPerDay)
+        } catch {
+            print("Error saving task: (error)")
         }
-        navigationController?.popToRootViewController(animated: true)
+        viewModel.coordinator?.didFinishAddScene()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        nameTextField.text = task?.name
-        descriptionTextField.text = task?.taskDescription
-        startDatePicker.date = task?.startTime ?? Date()
+        nameTextField.becomeFirstResponder()
+        nameTextField.text = viewModel.task?.name
+        descriptionTextField.text = viewModel.task?.taskDescription
+        startDatePicker.date = viewModel.task?.startTime ?? Date()
     }
-    
+    func configTap() {
+        let tapGestureReconizer = UITapGestureRecognizer(target: self, action: #selector(tap))
+        tapGestureReconizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGestureReconizer)
+    }
     @objc private func tap(sender: UITapGestureRecognizer) {
         view.endEditing(true)
+    }
+    
+    func configureFields() {
+//        nameTextField.delegate = self
+//        descriptionTextField.delegate = self
+
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.width, height: 50))
+        toolBar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
+            UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(didTapKeyboardDone))
+        ]
+        toolBar.sizeToFit()
+        nameTextField.inputAccessoryView = toolBar
+        descriptionTextField.inputAccessoryView = toolBar
+    }
+    
+    @objc func didTapKeyboardDone() {
+        nameTextField.resignFirstResponder()
+        descriptionTextField.resignFirstResponder()
     }
     
     //MARK: - SETUP & CONSTRAINTS
@@ -154,7 +198,7 @@ class AddViewController: UIViewController {
             taskNameLabel.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
             
             nameTextField.topAnchor.constraint(equalTo: taskNameLabel.bottomAnchor, constant: 10),
-            nameTextField.heightAnchor.constraint(equalTo: margin.heightAnchor, multiplier: 0.1),
+            nameTextField.heightAnchor.constraint(equalToConstant: 40),
             nameTextField.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
             nameTextField.trailingAnchor.constraint(equalTo: margin.trailingAnchor),
             
