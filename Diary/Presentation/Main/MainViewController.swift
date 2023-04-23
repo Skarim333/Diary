@@ -20,9 +20,9 @@ class MainViewController: UIViewController {
     }()
     let showHideButton: UIButton = {
        let button = UIButton()
-        button.setTitle("Открыть календарь", for: .normal)
+        button.setTitle(NSLocalizedString("Открыть календарь", comment: ""), for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Avenir Next", size: 14)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -70,10 +70,10 @@ class MainViewController: UIViewController {
     @objc func showHideButtonTapped() {
         if calendar.scope == .week {
             calendar.setScope(.month, animated: true)
-            showHideButton.setTitle("Свернуть календарь", for: .normal)
+            showHideButton.setTitle(NSLocalizedString("Свернуть календарь", comment: ""), for: .normal)
         } else {
             calendar.setScope(.week, animated: true)
-            showHideButton.setTitle("Открыть календарь", for: .normal)
+            showHideButton.setTitle(NSLocalizedString("Открыть календарь", comment: ""), for: .normal)
         }
     }
     
@@ -86,7 +86,6 @@ class MainViewController: UIViewController {
     
     func setupBarButton() {
         let button = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(showAddView))
-        button.accessibilityIdentifier =  "addButton"
         navigationItem.rightBarButtonItem = button
     }
     

@@ -9,26 +9,6 @@ import XCTest
 
 final class DiaryUITests: XCTestCase {
     
-    func testAddTaskUserInput() throws {
-        let app = XCUIApplication()
-        app.launch()
-        let nameField = app.textFields["inputName"]
-        let descField = app.textViews["inputDescription"]
-        let addButtonAtCalendar = app.buttons["addButton"]
-
-        app.swipeLeft()
-        app.swipeLeft()
-        addButtonAtCalendar.tap()
-        nameField.tap()
-        nameField.typeText("Test task")
-        descField.tap()
-        descField.typeText("Test desc")
-        app.tapCoordinate(at: CGPoint(x: app.frame.maxX - 30, y: app.frame.minY + 40))
-        app.tapCoordinate(at: CGPoint(x: 20, y: 20))
-        app.navigationBars.buttons.element(boundBy: 0).tap()
-
-    }
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 

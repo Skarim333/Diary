@@ -12,19 +12,18 @@ class AddViewController: UIViewController {
     
     var taskNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Name:"
+        label.text = NSLocalizedString("Name:", comment: "")
         label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.accessibilityIdentifier = "nameLabel"
         return label
     }()
     
     var taskDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Description:"
+        label.text = NSLocalizedString("Description:", comment: "")
         label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
@@ -35,7 +34,7 @@ class AddViewController: UIViewController {
     
     var startLabel: UILabel = {
         let label = UILabel()
-        label.text = "Start date:"
+        label.text = NSLocalizedString("Start date:", comment: "")
         label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
@@ -46,12 +45,11 @@ class AddViewController: UIViewController {
     
     var nameTextField: UITextField = {
         let txt = UITextField()
-        txt.placeholder = "Title"
+        txt.placeholder = NSLocalizedString("Title", comment: "")
         txt.font = UIFont.systemFont(ofSize: 17)
         txt.layer.borderColor = UIColor.gray.cgColor
         txt.layer.borderWidth = 1
         txt.layer.cornerRadius = 5
-        txt.accessibilityIdentifier = "inputName"
         txt.translatesAutoresizingMaskIntoConstraints = false
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: txt.frame.height))
         txt.leftView = paddingView
@@ -64,11 +62,10 @@ class AddViewController: UIViewController {
         txt.layer.borderColor = UIColor.gray.cgColor
         txt.layer.borderWidth = 1
         txt.layer.cornerRadius = 5
-        txt.accessibilityIdentifier = "inputDescription"
         txt.translatesAutoresizingMaskIntoConstraints = false
         txt.font = UIFont.systemFont(ofSize: 17)
         txt.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        txt.placeholderText = "Enter Description"
+//        txt.placeholderText = "Enter Description"
         return txt
     }()
     
@@ -119,7 +116,7 @@ class AddViewController: UIViewController {
     }
     
     func configureFields() {
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.width, height: 50))
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 50))
         toolBar.items = [
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
             UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(didTapKeyboardDone))

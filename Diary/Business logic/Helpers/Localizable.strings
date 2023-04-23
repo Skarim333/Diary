@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  Diary
+
+  Created by Карим Садыков on 23.04.2023.
+  
+*/
+
+"Свернуть календарь" = "Свернуть календарь";
+"Открыть календарь" = "Открыть календарь";
+"Title" = "Title";
+"Name:" = "Name:";
+"Description:" = "Description:";
+"Start date:" = "Start date:";
+"Enter Description" = "Enter Description";

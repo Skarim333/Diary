@@ -30,9 +30,9 @@
 		5D8E862D29F5A17E00258911 /* DateFormatterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8E862C29F5A17E00258911 /* DateFormatterHelper.swift */; };
 		5D8E862F29F5A1C400258911 /* MainModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8E862E29F5A1C400258911 /* MainModuleAssembly.swift */; };
 		5D8E863129F5A30100258911 /* AddModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8E863029F5A30100258911 /* AddModuleAssembly.swift */; };
+		5D8E863329F5ACD600258911 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5D8E863229F5ACD600258911 /* Localizable.strings */; };
 		5D94C7AB29F4303000F18D4E /* PlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D94C7AA29F4303000F18D4E /* PlaceholderTextView.swift */; };
 		5D94C7B129F43A6500F18D4E /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D94C7B029F43A6500F18D4E /* RealmService.swift */; };
-		5DDABE1729F0637F00842F7D /* Extension + UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDABE1629F0637F00842F7D /* Extension + UIView.swift */; };
 		5DDABE1929F06D1600842F7D /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDABE1829F06D1600842F7D /* MainTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,9 +83,9 @@
 		5D8E862C29F5A17E00258911 /* DateFormatterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterHelper.swift; sourceTree = "<group>"; };
 		5D8E862E29F5A1C400258911 /* MainModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModuleAssembly.swift; sourceTree = "<group>"; };
 		5D8E863029F5A30100258911 /* AddModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddModuleAssembly.swift; sourceTree = "<group>"; };
+		5D8E863229F5ACD600258911 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		5D94C7AA29F4303000F18D4E /* PlaceholderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTextView.swift; sourceTree = "<group>"; };
 		5D94C7B029F43A6500F18D4E /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
-		5DDABE1629F0637F00842F7D /* Extension + UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIView.swift"; sourceTree = "<group>"; };
 		5DDABE1829F06D1600842F7D /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		7FAEE43C89210305110D9A00 /* Pods-Diary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Diary.release.xcconfig"; path = "Target Support Files/Pods-Diary/Pods-Diary.release.xcconfig"; sourceTree = "<group>"; };
 		87B37DB229FCF37B927B7282 /* Pods-Diary-DiaryUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Diary-DiaryUITests.debug.xcconfig"; path = "Target Support Files/Pods-Diary-DiaryUITests/Pods-Diary-DiaryUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -208,8 +208,8 @@
 			isa = PBXGroup;
 			children = (
 				5D94C7AA29F4303000F18D4E /* PlaceholderTextView.swift */,
-				5DDABE1629F0637F00842F7D /* Extension + UIView.swift */,
 				5D8E862C29F5A17E00258911 /* DateFormatterHelper.swift */,
+				5D8E863229F5ACD600258911 /* Localizable.strings */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -386,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D83F52229F0451B001219A5 /* LaunchScreen.storyboard in Resources */,
+				5D8E863329F5ACD600258911 /* Localizable.strings in Resources */,
 				5D83F51F29F0451B001219A5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -532,7 +533,6 @@
 				5D851DB629F3056D00BF9327 /* MainViewModel.swift in Sources */,
 				5D851DAE29F2925000BF9327 /* AddViewController.swift in Sources */,
 				5D83F51829F04517001219A5 /* SceneDelegate.swift in Sources */,
-				5DDABE1729F0637F00842F7D /* Extension + UIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
