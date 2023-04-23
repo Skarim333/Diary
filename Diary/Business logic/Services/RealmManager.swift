@@ -63,7 +63,6 @@ class TaskManager {
     
     // получение всех задач
     var allTasks: Results<Task> {
-        print(realm.objects(Task.self))
         return realm.objects(Task.self)
     }
     

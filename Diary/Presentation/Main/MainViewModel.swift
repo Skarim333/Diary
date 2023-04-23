@@ -50,9 +50,9 @@ class MainViewModel: MainViewModelProtocol {
         let dateStart = calendar.startOfDay(for: date)
         let dateEnd = calendar.date(byAdding: .day, value: 1, to: dateStart)!
         
-        let predicate = NSPredicate(format: "repetitionsPerDay == %d AND startDate >= %@ AND startDate < %@", weekday, dateStart as NSDate, dateEnd as NSDate)
+        let predicate = NSPredicate(format: "repetitionsPerDay == %d AND startTime >= %@ AND startTime < %@", weekday, dateStart as NSDate, dateEnd as NSDate)
         let sortedTasks = taskManager.allTasks.filter(predicate).sorted(byKeyPath: "startTime")
-        
+        print(sortedTasks)
         result = Array(repeating: [], count: 24)
         for task in sortedTasks {
             let hour = calendar.component(.hour, from: task.startTime)
