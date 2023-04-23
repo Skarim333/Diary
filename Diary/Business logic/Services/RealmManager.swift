@@ -9,8 +9,11 @@ import RealmSwift
 
 class TaskManager {
     
-    private let realm = RealmService.shared.getRealm()
-    
+    private let realm: Realm
+
+    init(realm: Realm) {
+        self.realm = realm
+    }
     // добавление новой задачи
     func addTask(_ task: Task) throws {
         do {

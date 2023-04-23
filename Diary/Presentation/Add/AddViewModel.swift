@@ -7,11 +7,29 @@
 
 import Foundation
 
-class AddViewModel {
-    var coordinator: AddCoordinator?
-    let taskManager = TaskManager()
+@available(iOS 13.0, *)
+
+protocol AddViewModelProtocol {
+    var task: Task? { get }
+    func addTask(name: String, description: String, startTime: Date, repetitionsPerDay: Int) throws
+    func didFinish()
+}
+
+protocol AddViewModelOutput: AnyObject {
+    func didFinishAddScene()
+}
+
+class AddViewModel: AddViewModelProtocol {
+    weak var output: AddViewModelOutput?
+    private let taskManager: TaskManager
     var task: Task?
-    
+
+    init(taskManager: TaskManager, task: Task? = nil, output: AddViewModelOutput?) {
+        self.taskManager = taskManager
+        self.output = output
+        self.task = task
+    }
+
     func addTask(name: String, description: String, startTime: Date, repetitionsPerDay: Int) throws {
         let newTask = Task()
         newTask.name = name
@@ -23,7 +41,11 @@ class AddViewModel {
         } else {
             try taskManager.addTask(newTask)
         }
-        coordinator?.didFinishAddScene()
+        output?.didFinishAddScene()
+    }
+    
+    func didFinish() {
+        output?.didFinishAddScene()
     }
 
 }

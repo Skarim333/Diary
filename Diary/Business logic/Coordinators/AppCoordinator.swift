@@ -7,7 +7,8 @@
 
 import UIKit
 
-final class AppCoordinator: Coordinator {
+@available(iOS 13.0, *)
+final class AppCoordinator: NSObject, Coordinator {
     
     var childCoordinators: [Coordinator] = []
     
@@ -19,7 +20,8 @@ final class AppCoordinator: Coordinator {
     
     func start() {
         let navigationController = UINavigationController()
-        let MainCoordinator = MainCoordinator(navigationController: navigationController)
+        let taskManager = TaskManager(realm: RealmService.shared.getRealm())
+        let MainCoordinator = MainCoordinator(navigationController: navigationController, taskManager: taskManager)
         MainCoordinator.parentCoordinator = self
         childCoordinators.append(MainCoordinator)
         MainCoordinator.start()
