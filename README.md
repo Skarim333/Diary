@@ -8,7 +8,7 @@
 
 * Нужно добавить Podfile в вашем проекте 
 * Подключить библиотеки
-  pod 'FSCalendar'
-  pod 'RealmSwift'
-  pod 'SnapKit'
+  /n pod 'FSCalendar'
+  /n pod 'RealmSwift'
+  /n pod 'SnapKit'
 * После этих действий можно запускать проект
