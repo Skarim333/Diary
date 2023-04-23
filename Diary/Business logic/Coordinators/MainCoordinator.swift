@@ -41,6 +41,6 @@ extension MainCoordinator: MainViewModelOutput {
         let addCoordinator = AddCoordinator(navigationController: navigationController, taskManager: taskManager)
         addCoordinator.parentCoordinator = self
         childCoordinators.append(addCoordinator)
-        addCoordinator.start()
+        addCoordinator.startEditing(task)
     }
 }
