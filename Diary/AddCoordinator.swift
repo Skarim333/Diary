@@ -27,6 +27,15 @@ final class AddCoordinator: Coordinator {
         navigationController.pushViewController(addViewController, animated: true)
     }
     
+    func startEditing(_ task: Task) {
+        let addViewController = AddViewController()
+        let addViewModel = AddViewModel()
+        addViewModel.coordinator = self
+        addViewModel.task = task
+        addViewController.viewModel = addViewModel
+        navigationController.pushViewController(addViewController, animated: true)
+    }
+    
     func didFinishAddScene() {
         parentCoordinator?.childDidFinish(self)
         navigationController.popViewController(animated: true)

@@ -63,4 +63,8 @@ class MainViewModel {
     func pushAddView() {
         self.coordinator?.startAddScene()
     }
+    
+    func pushEditingView(_ task: Task) {
+        self.coordinator?.startEditingScene(task)
+    }
 }

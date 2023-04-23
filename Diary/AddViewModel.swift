@@ -23,6 +23,7 @@ class AddViewModel {
         } else {
             try taskManager.addTask(newTask)
         }
+        coordinator?.didFinishAddScene()
     }
 
 }

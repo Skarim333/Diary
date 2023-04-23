@@ -32,4 +32,11 @@ final class MainCoordinator: Coordinator {
         childCoordinators.append(addCoordinator)
         addCoordinator.start()
     }
+    
+    func startEditingScene(_ task: Task) {
+        let addCoordinator = AddCoordinator(navigationController: navigationController)
+        addCoordinator.parentCoordinator = self
+        childCoordinators.append(addCoordinator)
+        addCoordinator.startEditing(task)
+    }
 }

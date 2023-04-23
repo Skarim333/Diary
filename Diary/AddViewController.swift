@@ -153,7 +153,6 @@ class AddViewController: UIViewController {
         } catch {
             print("Error saving task: (error)")
         }
-        viewModel.coordinator?.didFinishAddScene()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -173,9 +172,6 @@ class AddViewController: UIViewController {
     }
     
     func configureFields() {
-//        nameTextField.delegate = self
-//        descriptionTextField.delegate = self
-
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.width, height: 50))
         toolBar.items = [
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
@@ -197,12 +193,9 @@ class AddViewController: UIViewController {
         view.addSubview(taskNameLabel)
         view.addSubview(taskDescriptionLabel)
         view.addSubview(startLabel)
-        //        view.addSubview(finishLabel)
         view.addSubview(nameTextField)
         view.addSubview(descriptionTextField)
-        //        view.addSubview(addTaskButton)
         view.addSubview(startDatePicker)
-        //        view.addSubview(finishDatePicker)
         
         let margin = view.layoutMarginsGuide
         

@@ -147,10 +147,11 @@ extension MainViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = AddViewController()
-//        vc.viewModel.task = viewModel.tasks[indexPath.row]
-        vc.viewModel.task = viewModel.result[indexPath.section][indexPath.row]
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = AddViewController()
+////        vc.viewModel.task = viewModel.tasks[indexPath.row]
+//        vc.viewModel.task = viewModel.result[indexPath.section][indexPath.row]
+//        self.navigationController?.pushViewController(vc, animated: true)
+        viewModel.pushEditingView(viewModel.result[indexPath.section][indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
